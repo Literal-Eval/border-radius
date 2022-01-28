@@ -17,16 +17,6 @@ var stopF = stops[6];
 var stopG = stops[7];
 
 var pressedStops = new Array(8).fill(false);
-var stopPositions = {
-  a: 59,
-  b: 41,
-  c: 36,
-  d: 64,
-  e: 57,
-  f: 43,
-  g: 57,
-  h: 43,
-};
 var pressed = false;
 var oldX = 0;
 var oldY = 0;
@@ -38,10 +28,29 @@ var viewWidth = 0.0;
 var viewHeight = 0.0;
 var boxDim = 0.0;
 
+function updateDim(): void {
+  viewWidth = window.innerWidth;
+  viewHeight = window.innerHeight;
+  boxDim = viewHeight / 2;
+}
+  
+updateDim();
+window.addEventListener("resize", updateDim);
+
+var stopPositions = {
+    a: 0.8 * boxDim,
+    b: 0.2 * boxDim,
+    c: 0.2 * boxDim,
+    d: 0.8 * boxDim,
+    e: 0.8 * boxDim,
+    f: 0.8 * boxDim,
+    g: 0.2 * boxDim,
+    h: 0.2 * boxDim,
+  };
+
 function updateBox(): void {
   var vh = 200 / window.innerHeight;
 
-  box.style.borderRadius = "";
   box.style.borderRadius = `${Math.round(stopPositions["a"] * vh)}%
     ${Math.round(stopPositions["b"] * vh)}%
     ${Math.round(stopPositions["c"] * vh)}%
@@ -121,22 +130,13 @@ sizeSwitch.addEventListener("click", (e) => {
   }
 });
 
-function updateDim(): void {
-  viewWidth = window.innerWidth;
-  viewHeight = window.innerHeight;
-  boxDim = viewHeight / 2;
-}
-
-updateDim();
-window.addEventListener("resize", updateDim);
-
 for (let i: number = 0; i < 4; i++) {
   stops[i].addEventListener("mousedown", (e) => {
     e.preventDefault();
     oldX = e.screenX;
     oldLeft =
       stops[i].style.left === ""
-        ? 0
+        ? 0.8 * boxDim
         : +stops[i].style.left.substring(0, stops[i].style.left.length - 2);
     pressedStops[i] = true;
     pressed = true;
@@ -154,7 +154,7 @@ for (let i: number = 4; i < 8; i++) {
     oldY = e.screenY;
     oldTop =
       stops[i].style.top === ""
-        ? 0
+        ? 0.8 * boxDim
         : +stops[i].style.top.substring(0, stops[i].style.top.length - 2);
     pressedStops[i] = true;
     pressed = true;
