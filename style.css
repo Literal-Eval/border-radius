@@ -7,8 +7,6 @@
 body {
   font-family: "M Plus Rounded 1c", sans-serif;
   color: #d0d0d6;
-
-  overflow: hidden;
 }
 
 @keyframes morph {
@@ -27,14 +25,21 @@ body {
   }
 }
 
-body::before {
+.backdrop {
+  overflow: clip;
+  background-color: #000022;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.backdrop::before {
   content: "";
   position: absolute;
   left: -20vmin;
   bottom: -20vmin;
   width: 70vmax;
   height: 70vmax;
-  z-index: -1;
   border-radius: 41% 59% 41% 59% / 57% 51% 49% 43%;
   background: rgba(255, 255, 255, 0.07);
   animation: morph 15s linear infinite alternate, spin 20s linear infinite;
@@ -46,12 +51,11 @@ body::before {
   animation-direction: alternate, normal;
   animation-fill-mode: none, none;
   animation-play-state: running, running;
-  /* animation-timeline: ; */
   will-change: border-radius, transform;
   transform-origin: 55% 55%;
 }
 
-body::after {
+.backdrop::after {
   content: "";
   position: absolute;
   right: -10vmin;
@@ -69,13 +73,22 @@ body::after {
   animation-direction: alternate, normal;
   animation-fill-mode: none, none;
   animation-play-state: running, running;
-  /* animation-timeline: ; */
   will-change: border-radius, transform;
   transform-origin: 55% 55%;
 }
 
-p {
-  font-size: 1.25rem;
+.made-with-section {
+  background-color: #262643;
+  text-align: center;
+  padding: 5px 0;
+  font-size: 0.9rem;
+  color: #aa8ed6;
+}
+
+.author-name {
+  font-weight: bold;
+  color: #fff;
+  color: #d4d4d9;
 }
 
 /**************************
@@ -85,24 +98,24 @@ BACKGROUND COLOR:
     #FF0099
     #3023AE
     #00FFFF
+    #262643
 
 TEXT COLOR:
     #D0D0D6
+    #AA8ED6
+    #D4D4D9
 
 ***************************/
 
 main {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   align-items: center;
   justify-content: center;
 
-  width: 100vw;
-  min-height: 100vh;
   padding-top: 20px;
-
-  background-color: #000022;
 }
 
 .divider {
