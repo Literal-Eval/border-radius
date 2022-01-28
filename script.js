@@ -4,6 +4,8 @@ var stops = document.querySelectorAll(".rad-stop");
 var radiusDataText = document.querySelector(".radius-data-text");
 var sizeSwitch = document.querySelector(".switch");
 var modeSwitch = document.querySelector(".mode-switch");
+var copyButton = document.querySelector('.btn-copy');
+var copyInfo = document.querySelector('.copied-info');
 var mode = "normal";
 var showSize = false;
 var stopA = stops[0];
@@ -53,6 +55,14 @@ function updateBox() {
     ${Math.round(stopPositions["h"] * vh)}%`;
     radiusDataText.textContent = box.style.borderRadius;
 }
+updateBox();
+copyButton.addEventListener('click', (_) => {
+    navigator.clipboard.writeText(box.style.borderRadius);
+    copyInfo.style.opacity = '100%';
+    setTimeout(() => {
+        copyInfo.style.opacity = '0%';
+    }, 5000);
+});
 // Code that'll make you say BRUH in French
 modeSwitch.addEventListener("click", (e) => {
     mode = mode == "normal" ? "abnormal_lol" : "normal";

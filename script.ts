@@ -3,6 +3,8 @@ var stops           = document.querySelectorAll(".rad-stop") as NodeListOf<HTMLE
 var radiusDataText  = document.querySelector(".radius-data-text") as HTMLElement;
 var sizeSwitch      = document.querySelector(".switch") as HTMLElement;
 var modeSwitch      = document.querySelector(".mode-switch") as HTMLElement;
+var copyButton      = document.querySelector('.btn-copy') as HTMLElement;
+var copyInfo        = document.querySelector('.copied-info') as HTMLElement;
 
 var mode: string = "normal";
 var showSize: boolean = false;
@@ -62,6 +64,17 @@ function updateBox(): void {
 
   radiusDataText.textContent = box.style.borderRadius;
 }
+
+updateBox();
+
+copyButton.addEventListener('click', (_) => {
+    navigator.clipboard.writeText(box.style.borderRadius);
+    copyInfo.style.opacity = '100%';
+
+    setTimeout(() => {
+        copyInfo.style.opacity = '0%';
+    }, 5000);
+});
 
 // Code that'll make you say BRUH in French
 

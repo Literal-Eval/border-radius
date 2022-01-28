@@ -164,6 +164,7 @@ main {
 }
 
 .btn-copy {
+  position: relative;
   color: #d0d0d6;
   background-color: #ff0099;
   transition: background-color 0.3s ease-out;
@@ -179,6 +180,20 @@ main {
 .btn-copy:hover,
 .btn-copy:active {
   background-color: #3023ae;
+}
+
+.copied-info {
+  display: inline-block;
+  position: absolute;
+  bottom: -20px;
+  left: 8px;
+  opacity: 0%;
+  
+  color: #f09;
+  font-size: 0.8rem;
+  max-lines: 1;
+
+  transition: opacity 0.3s ease-out;
 }
 
 .mode-switch,
