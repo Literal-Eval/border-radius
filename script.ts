@@ -62,23 +62,23 @@ modeSwitch.addEventListener("click", (e) => {
   if (modeSwitch.classList.contains("on")) {
     modeSwitch.classList.remove("on");
 
-    stopPositions["a"] = boxDim * 0.5 - 11;
-    stopPositions["b"] = boxDim * 0.5 - 11;
-    stopPositions["c"] = boxDim * 0.5 - 11;
-    stopPositions["d"] = boxDim * 0.5 - 11;
-    stopPositions["e"] = boxDim * 0.5 - 11;
-    stopPositions["f"] = boxDim * 0.5 - 11;
-    stopPositions["g"] = boxDim * 0.5 - 11;
-    stopPositions["h"] = boxDim * 0.5 - 11;
+    stopPositions["a"] = boxDim * 0.5;
+    stopPositions["b"] = boxDim * 0.5;
+    stopPositions["c"] = boxDim * 0.5;
+    stopPositions["d"] = boxDim * 0.5;
+    stopPositions["e"] = boxDim * 0.5;
+    stopPositions["f"] = boxDim * 0.5;
+    stopPositions["g"] = boxDim * 0.5;
+    stopPositions["h"] = boxDim * 0.5;
 
     stopA.style.left = boxDim * 0.5 - 11 + "px";
     stopB.style.left = boxDim * 0.5 - 11 + "px";
     stopC.style.left = boxDim * 0.5 - 11 + "px";
     stopD.style.left = boxDim * 0.5 - 11 + "px";
-    stopE.style.top = boxDim * 0.5 - 11 + "px";
-    stopH.style.top = boxDim * 0.5 - 11 + "px";
-    stopF.style.top = boxDim * 0.5 - 11 + "px";
-    stopG.style.top = boxDim * 0.5 - 11 + "px";
+    stopE.style.top  = boxDim * 0.5 - 11 + "px";
+    stopH.style.top  = boxDim * 0.5 - 11 + "px";
+    stopF.style.top  = boxDim * 0.5 - 11 + "px";
+    stopG.style.top  = boxDim * 0.5 - 11 + "px";
 
     modeSwitch.textContent = '8';
     updateBox();
@@ -88,23 +88,23 @@ modeSwitch.addEventListener("click", (e) => {
   else {
     modeSwitch.classList.add("on");
 
-    stopPositions["a"] = boxDim * 0.2 - 11;
-    stopPositions["b"] = boxDim * 0.2 - 11;
-    stopPositions["c"] = boxDim * 0.2 - 11;
-    stopPositions["d"] = boxDim * 0.2 - 11;
-    stopPositions["e"] = boxDim * 0.2 - 11;
-    stopPositions["h"] = boxDim * 0.2 - 11;
-    stopPositions["f"] = boxDim * 0.2 - 11;
-    stopPositions["g"] = boxDim * 0.2 - 11;
+    stopPositions["a"] = boxDim * 0.2;
+    stopPositions["b"] = boxDim * 0.2;
+    stopPositions["c"] = boxDim * 0.2;
+    stopPositions["d"] = boxDim * 0.2;
+    stopPositions["e"] = boxDim * 0.2;
+    stopPositions["h"] = boxDim * 0.2;
+    stopPositions["f"] = boxDim * 0.2;
+    stopPositions["g"] = boxDim * 0.2;
 
     stopA.style.left = boxDim * 0.2 - 11 + "px";
     stopB.style.left = boxDim * 0.8 - 11 + "px";
     stopC.style.left = boxDim * 0.8 - 11 + "px";
     stopD.style.left = boxDim * 0.2 - 11 + "px";
-    stopE.style.top = boxDim * 0.2 - 11 + "px";
-    stopH.style.top = boxDim * 0.8 - 11 + "px";
-    stopF.style.top = boxDim * 0.2 - 11 + "px";
-    stopG.style.top = boxDim * 0.8 - 11 + "px";
+    stopE.style.top  = boxDim * 0.2 - 11 + "px";
+    stopH.style.top  = boxDim * 0.8 - 11 + "px";
+    stopF.style.top  = boxDim * 0.2 - 11 + "px";
+    stopG.style.top  = boxDim * 0.8 - 11 + "px";
 
     modeSwitch.textContent = '4';
     updateBox();
