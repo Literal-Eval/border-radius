@@ -1,5 +1,3 @@
-"use strict";
-
 var box             = document.querySelector(".box") as HTMLElement;
 var stops           = document.querySelectorAll(".rad-stop") as NodeListOf<HTMLElement>;
 var radiusDataText  = document.querySelector(".radius-data-text") as HTMLElement;
