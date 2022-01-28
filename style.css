@@ -1,0 +1,252 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "M Plus Rounded 1c", sans-serif;
+  color: #d0d0d6;
+
+  overflow: hidden;
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+  }
+
+  100% {
+    border-radius: 40% 60%;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  left: -20vmin;
+  bottom: -20vmin;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 41% 59% 41% 59% / 57% 51% 49% 43%;
+  background: rgba(255, 255, 255, 0.07);
+  animation: morph 15s linear infinite alternate, spin 20s linear infinite;
+  animation-name: morph, spin;
+  animation-duration: 15s, 20s;
+  animation-timing-function: linear, linear;
+  animation-delay: 0s, 0s;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, normal;
+  animation-fill-mode: none, none;
+  animation-play-state: running, running;
+  /* animation-timeline: ; */
+  will-change: border-radius, transform;
+  transform-origin: 55% 55%;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  right: -10vmin;
+  top: 0vmin;
+  width: 70vmin;
+  height: 70vmin;
+  border-radius: 41% 59% 41% 59% / 57% 51% 49% 43%;
+  background: rgba(255, 255, 255, 0.07);
+  animation: morph 15s linear infinite alternate, spin 20s linear infinite;
+  animation-name: morph, spin;
+  animation-duration: 15s, 20s;
+  animation-timing-function: linear, linear;
+  animation-delay: 0s, 0s;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, normal;
+  animation-fill-mode: none, none;
+  animation-play-state: running, running;
+  /* animation-timeline: ; */
+  will-change: border-radius, transform;
+  transform-origin: 55% 55%;
+}
+
+/**************************
+
+BACKGROUND COLOR:   
+    #000022
+    #FF0099
+    #3023AE
+    #00FFFF
+
+TEXT COLOR:
+    #D0D0D6
+
+***************************/
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  min-height: 100vh;
+  padding-top: 20px;
+
+  background-color: #000022;
+}
+
+.divider {
+  width: 530px;
+  height: 1px;
+  background-color: #d0d0d6;
+
+  margin: 10px 0;
+}
+
+.radius-and-size {
+  padding: 20px 0;
+
+  max-width: 630px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.radius-data-box {
+  display: inline-block;
+  display: flex;
+}
+
+.radius-data {
+  width: 350px;
+  background-color: #d0d0d6;
+  color: #000022;
+
+  display: flex;
+  align-items: center;
+}
+
+.radius-data p {
+  font-size: 16px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.btn-copy {
+  color: #d0d0d6;
+  background-color: #ff0099;
+  transition: background-color 0.3s ease-out;
+  cursor: pointer;
+
+  padding: 5px 10px;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.btn-copy:hover,
+.btn-copy:active {
+  background-color: #3023ae;
+}
+
+.switch {
+  width: 50px;
+  height: 20px;
+  background-color: #d0d0d6;
+
+  border-radius: 20px;
+}
+
+p {
+  font-size: 1.25rem;
+}
+
+/**************************
+******* DISPLAY BOX *******
+**************************/
+
+.box {
+  width: 50vh;
+  height: 50vh;
+
+  border-color: #d0d0d6;
+  background: linear-gradient(45deg, #3023ae 0%, #f09 100%);
+
+  border-radius: 41% 59% 41% 59% / 57% 51% 49% 43%;
+  box-shadow: -50px 50px 0px rgba(255, 255, 255, 0.07);
+}
+
+.box-border {
+  margin: 10px 0px;
+  border-style: dashed;
+
+  position: relative;
+}
+
+/**************************
+*******    STOPS    *******
+**************************/
+
+.rad-stop {
+  display: inline;
+  position: absolute;
+  background-color: #d0d0d6;
+
+  transition: all 0.1s;
+  transform-box: view-box;
+}
+
+.rad-stop:hover {
+  transform: scale(1.2);
+}
+
+.rad-stop:hover div {
+  transform: scale(0.8);
+}
+
+.rad-stop.a,
+.rad-stop.b {
+  left: 20px;
+  top: -10px;
+}
+
+.rad-stop.f,
+.rad-stop.g {
+  top: 100px;
+  right: -10px;
+}
+
+.rad-stop.c,
+.rad-stop.d {
+  bottom: -10px;
+  left: 30px;
+}
+
+.rad-stop.e,
+.rad-stop.h {
+  left: -10px;
+  top: 40px;
+}
+
+.btn-rad-stop {
+  width: 18px;
+  height: 18px;
+
+  background-color: #d0d0d6;
+  border: 2px solid #000022;
+
+  transition: background-color 0.1s;
+}
+
+.btn-rad-stop:hover,
+.btn-rad-stop:active {
+  background-color: #00ffff;
+}
