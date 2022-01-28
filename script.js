@@ -3,7 +3,8 @@ var box = document.querySelector(".box");
 var stops = document.querySelectorAll(".rad-stop");
 var radiusDataText = document.querySelector(".radius-data-text");
 var sizeSwitch = document.querySelector(".switch");
-var mode = "normalp";
+var modeSwitch = document.querySelector('.mode-switch');
+var mode = "normal";
 var showSize = false;
 var stopA = stops[0];
 var stopB = stops[1];
@@ -45,6 +46,12 @@ function updateBox() {
     ${Math.round(stopPositions["h"] * vh)}%`;
     radiusDataText.textContent = box.style.borderRadius;
 }
+modeSwitch.addEventListener('click', (e) => {
+    mode = (mode == "normal") ? "abnormal_lol" : "normal";
+    modeSwitch.classList.contains('on') ?
+        modeSwitch.classList.remove('on') :
+        modeSwitch.classList.add('on');
+});
 sizeSwitch.addEventListener('click', (e) => {
     if (showSize) {
         sizeSwitch.classList.remove('on');

@@ -4,8 +4,9 @@ var box             = document.querySelector(".box") as HTMLElement;
 var stops           = document.querySelectorAll(".rad-stop") as NodeListOf<HTMLElement>;
 var radiusDataText  = document.querySelector(".radius-data-text") as HTMLElement;
 var sizeSwitch      = document.querySelector(".switch") as HTMLElement;
+var modeSwitch      = document.querySelector('.mode-switch') as HTMLElement;
 
-var mode: string        = "normalp";
+var mode: string        = "normal";
 var showSize: boolean   = false;
 
 var stopA = stops[0];
@@ -53,6 +54,13 @@ function updateBox(): void {
 
   radiusDataText.textContent = box.style.borderRadius;
 }
+
+modeSwitch.addEventListener('click', (e) => {
+    mode = (mode == "normal") ? "abnormal_lol": "normal";
+    modeSwitch.classList.contains('on') ?
+        modeSwitch.classList.remove('on') :
+        modeSwitch.classList.add('on');
+});
 
 sizeSwitch.addEventListener('click', (e) => {
     if (showSize) {
