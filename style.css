@@ -158,6 +158,7 @@ main {
 
 .radius-data p {
   font-size: 16px;
+  font-weight: 500;
   padding-left: 10px;
   text-align: center;
 }
@@ -248,7 +249,7 @@ main {
   border-color: #d0d0d6;
   background: linear-gradient(45deg, #3023ae 0%, #f09 100%);
 
-  border-radius: 41% 59% 41% 59% / 57% 51% 49% 43%;
+  border-radius: 80% 20% 20% 80% / 80% 80% 20% 20%;
   box-shadow: -50px 50px 0px rgba(255, 255, 255, 0.07);
 
   will-change: border-radius;
@@ -289,26 +290,26 @@ main {
 
 .rad-stop.a,
 .rad-stop.b {
-  left: 20px;
+  left: 40vh;
   top: -11px;
 }
 
 .rad-stop.f,
 .rad-stop.g {
-  top: 100px;
+  top: 40vh;
   right: -11px;
 }
 
 .rad-stop.c,
 .rad-stop.d {
   bottom: -11px;
-  left: 30px;
+  left: 40vh;
 }
 
 .rad-stop.e,
 .rad-stop.h {
   left: -11px;
-  top: 40px;
+  top: 40vh;
 }
 
 .btn-rad-stop {
