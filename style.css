@@ -272,24 +272,24 @@ main {
 .rad-stop.a,
 .rad-stop.b {
   left: 20px;
-  top: -10px;
+  top: -11px;
 }
 
 .rad-stop.f,
 .rad-stop.g {
   top: 100px;
-  right: -10px;
+  right: -11px;
 }
 
 .rad-stop.c,
 .rad-stop.d {
-  bottom: -10px;
+  bottom: -11px;
   left: 30px;
 }
 
 .rad-stop.e,
 .rad-stop.h {
-  left: -10px;
+  left: -11px;
   top: 40px;
 }
 
