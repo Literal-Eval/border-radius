@@ -4,10 +4,10 @@ var box             = document.querySelector(".box") as HTMLElement;
 var stops           = document.querySelectorAll(".rad-stop") as NodeListOf<HTMLElement>;
 var radiusDataText  = document.querySelector(".radius-data-text") as HTMLElement;
 var sizeSwitch      = document.querySelector(".switch") as HTMLElement;
-var modeSwitch      = document.querySelector('.mode-switch') as HTMLElement;
+var modeSwitch      = document.querySelector(".mode-switch") as HTMLElement;
 
-var mode: string        = "normal";
-var showSize: boolean   = false;
+var mode: string = "normal";
+var showSize: boolean = false;
 
 var stopA = stops[0];
 var stopB = stops[1];
@@ -55,21 +55,21 @@ function updateBox(): void {
   radiusDataText.textContent = box.style.borderRadius;
 }
 
-modeSwitch.addEventListener('click', (e) => {
-    mode = (mode == "normal") ? "abnormal_lol": "normal";
-    modeSwitch.classList.contains('on') ?
-        modeSwitch.classList.remove('on') :
-        modeSwitch.classList.add('on');
+modeSwitch.addEventListener("click", (e) => {
+  mode = mode == "normal" ? "abnormal_lol" : "normal";
+  modeSwitch.classList.contains("on")
+    ? modeSwitch.classList.remove("on")
+    : modeSwitch.classList.add("on");
 });
 
-sizeSwitch.addEventListener('click', (e) => {
-    if (showSize) {
-        sizeSwitch.classList.remove('on');
-        showSize = false;
-    } else {
-        sizeSwitch.classList.add('on');
-        showSize = true;
-    }
+sizeSwitch.addEventListener("click", (e) => {
+  if (showSize) {
+    sizeSwitch.classList.remove("on");
+    showSize = false;
+  } else {
+    sizeSwitch.classList.add("on");
+    showSize = true;
+  }
 });
 
 function updateDim(): void {
@@ -151,18 +151,22 @@ document.body.addEventListener("mousemove", (e) => {
 
     //
     else if (pressedStops[2]) {
-      stopPositions["c"] = Math.max(0, oldLeft + e.screenX - oldX);
-      stopC.style.left = stopPositions["c"] + "px";
+      stopPositions["c"] =
+        boxDim - Math.min(Math.max(0, oldLeft + e.screenX - oldX), boxDim);
+      stopC.style.left = boxDim - stopPositions["c"] + "px";
 
       if (mode == "normal") {
         stopPositions["d"] = boxDim - stopPositions["c"];
-        stopD.style.left = stopPositions["c"] + "px";
+        stopD.style.left = boxDim - stopPositions["c"] + "px";
       }
     }
 
     //
     else if (pressedStops[3]) {
-      stopPositions["d"] = Math.max(0, oldLeft + e.screenX - oldX);
+      stopPositions["d"] = Math.min(
+        Math.min(Math.max(0, oldLeft + e.screenX - oldX)),
+        boxDim
+      );
       stopD.style.left = stopPositions["d"] + "px";
 
       if (mode == "normal") {
@@ -173,7 +177,10 @@ document.body.addEventListener("mousemove", (e) => {
 
     //
     else if (pressedStops[4]) {
-      stopPositions["e"] = Math.max(0, oldTop + e.screenY - oldY);
+      stopPositions["e"] = Math.min(
+        Math.max(0, oldTop + e.screenY - oldY),
+        boxDim
+      );
       stopE.style.top = stopPositions["e"] + "px";
 
       if (mode == "normal") {
@@ -184,18 +191,22 @@ document.body.addEventListener("mousemove", (e) => {
 
     //
     else if (pressedStops[5]) {
-      stopPositions["h"] = Math.max(0, oldTop + e.screenY - oldY);
-      stopH.style.top = stopPositions["h"] + "px";
+      stopPositions["h"] =
+        boxDim - Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+      stopH.style.top = boxDim - stopPositions["h"] + "px";
 
       if (mode == "normal") {
         stopPositions["e"] = boxDim - stopPositions["h"];
-        stopE.style.top = stopPositions["h"] + "px";
+        stopE.style.top = boxDim - stopPositions["h"] + "px";
       }
     }
 
     //
     else if (pressedStops[6]) {
-      stopPositions["f"] = Math.max(0, oldTop + e.screenY - oldY);
+      stopPositions["f"] = Math.min(
+        Math.max(0, oldTop + e.screenY - oldY),
+        boxDim
+      );
       stopF.style.top = stopPositions["f"] + "px";
 
       if (mode == "normal") {
@@ -206,12 +217,13 @@ document.body.addEventListener("mousemove", (e) => {
 
     //
     else if (pressedStops[7]) {
-      stopPositions["g"] = Math.max(0, oldTop + e.screenY - oldY);
-      stopG.style.top = stopPositions["g"] + "px";
+      stopPositions["g"] =
+        boxDim - Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+      stopG.style.top = boxDim - stopPositions["g"] + "px";
 
       if (mode == "normal") {
         stopPositions["f"] = boxDim - stopPositions["g"];
-        stopF.style.top = stopPositions["g"] + "px";
+        stopF.style.top = boxDim - stopPositions["g"] + "px";
       }
     }
 

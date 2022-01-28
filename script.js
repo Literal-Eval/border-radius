@@ -3,7 +3,7 @@ var box = document.querySelector(".box");
 var stops = document.querySelectorAll(".rad-stop");
 var radiusDataText = document.querySelector(".radius-data-text");
 var sizeSwitch = document.querySelector(".switch");
-var modeSwitch = document.querySelector('.mode-switch');
+var modeSwitch = document.querySelector(".mode-switch");
 var mode = "normal";
 var showSize = false;
 var stopA = stops[0];
@@ -46,19 +46,19 @@ function updateBox() {
     ${Math.round(stopPositions["h"] * vh)}%`;
     radiusDataText.textContent = box.style.borderRadius;
 }
-modeSwitch.addEventListener('click', (e) => {
-    mode = (mode == "normal") ? "abnormal_lol" : "normal";
-    modeSwitch.classList.contains('on') ?
-        modeSwitch.classList.remove('on') :
-        modeSwitch.classList.add('on');
+modeSwitch.addEventListener("click", (e) => {
+    mode = mode == "normal" ? "abnormal_lol" : "normal";
+    modeSwitch.classList.contains("on")
+        ? modeSwitch.classList.remove("on")
+        : modeSwitch.classList.add("on");
 });
-sizeSwitch.addEventListener('click', (e) => {
+sizeSwitch.addEventListener("click", (e) => {
     if (showSize) {
-        sizeSwitch.classList.remove('on');
+        sizeSwitch.classList.remove("on");
         showSize = false;
     }
     else {
-        sizeSwitch.classList.add('on');
+        sizeSwitch.classList.add("on");
         showSize = true;
     }
 });
@@ -126,16 +126,17 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[2]) {
-            stopPositions["c"] = Math.max(0, oldLeft + e.screenX - oldX);
-            stopC.style.left = stopPositions["c"] + "px";
+            stopPositions["c"] =
+                boxDim - Math.min(Math.max(0, oldLeft + e.screenX - oldX), boxDim);
+            stopC.style.left = boxDim - stopPositions["c"] + "px";
             if (mode == "normal") {
                 stopPositions["d"] = boxDim - stopPositions["c"];
-                stopD.style.left = stopPositions["c"] + "px";
+                stopD.style.left = boxDim - stopPositions["c"] + "px";
             }
         }
         //
         else if (pressedStops[3]) {
-            stopPositions["d"] = Math.max(0, oldLeft + e.screenX - oldX);
+            stopPositions["d"] = Math.min(Math.min(Math.max(0, oldLeft + e.screenX - oldX)), boxDim);
             stopD.style.left = stopPositions["d"] + "px";
             if (mode == "normal") {
                 stopPositions["c"] = boxDim - stopPositions["d"];
@@ -144,7 +145,7 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[4]) {
-            stopPositions["e"] = Math.max(0, oldTop + e.screenY - oldY);
+            stopPositions["e"] = Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
             stopE.style.top = stopPositions["e"] + "px";
             if (mode == "normal") {
                 stopPositions["h"] = boxDim - stopPositions["e"];
@@ -153,16 +154,17 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[5]) {
-            stopPositions["h"] = Math.max(0, oldTop + e.screenY - oldY);
-            stopH.style.top = stopPositions["h"] + "px";
+            stopPositions["h"] =
+                boxDim - Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+            stopH.style.top = boxDim - stopPositions["h"] + "px";
             if (mode == "normal") {
                 stopPositions["e"] = boxDim - stopPositions["h"];
-                stopE.style.top = stopPositions["h"] + "px";
+                stopE.style.top = boxDim - stopPositions["h"] + "px";
             }
         }
         //
         else if (pressedStops[6]) {
-            stopPositions["f"] = Math.max(0, oldTop + e.screenY - oldY);
+            stopPositions["f"] = Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
             stopF.style.top = stopPositions["f"] + "px";
             if (mode == "normal") {
                 stopPositions["g"] = boxDim - stopPositions["f"];
@@ -171,11 +173,12 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[7]) {
-            stopPositions["g"] = Math.max(0, oldTop + e.screenY - oldY);
-            stopG.style.top = stopPositions["g"] + "px";
+            stopPositions["g"] =
+                boxDim - Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+            stopG.style.top = boxDim - stopPositions["g"] + "px";
             if (mode == "normal") {
                 stopPositions["f"] = boxDim - stopPositions["g"];
-                stopF.style.top = stopPositions["g"] + "px";
+                stopF.style.top = boxDim - stopPositions["g"] + "px";
             }
         }
         updateBox();
