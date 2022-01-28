@@ -36,6 +36,7 @@ var viewHeight = 0.0;
 var boxDim = 0.0;
 function updateBox() {
     var vh = 200 / window.innerHeight;
+    box.style.borderRadius = '';
     box.style.borderRadius = `${Math.round(stopPositions["a"] * vh)}%
     ${Math.round(stopPositions["b"] * vh)}%
     ${Math.round(stopPositions["c"] * vh)}%
@@ -47,10 +48,48 @@ function updateBox() {
     radiusDataText.textContent = box.style.borderRadius;
 }
 modeSwitch.addEventListener("click", (e) => {
-    mode = mode == "normal" ? "abnormal_lol" : "normal";
-    modeSwitch.classList.contains("on")
-        ? modeSwitch.classList.remove("on")
-        : modeSwitch.classList.add("on");
+    mode = (mode == "normal") ? "abnormal_lol" : "normal";
+    if (modeSwitch.classList.contains("on")) {
+        modeSwitch.classList.remove("on");
+        stopPositions['a'] = boxDim * 0.5;
+        stopPositions['b'] = boxDim * 0.5;
+        stopPositions['c'] = boxDim * 0.5;
+        stopPositions['d'] = boxDim * 0.5;
+        stopPositions['e'] = boxDim * 0.5;
+        stopPositions['f'] = boxDim * 0.5;
+        stopPositions['g'] = boxDim * 0.5;
+        stopPositions['h'] = boxDim * 0.5;
+        stopA.style.left = boxDim * 0.5 + 'px';
+        stopB.style.left = boxDim * 0.5 + 'px';
+        stopC.style.left = boxDim * 0.5 + 'px';
+        stopD.style.left = boxDim * 0.5 + 'px';
+        stopE.style.top = boxDim * 0.5 + 'px';
+        stopH.style.top = boxDim * 0.5 + 'px';
+        stopF.style.top = boxDim * 0.5 + 'px';
+        stopG.style.top = boxDim * 0.5 + 'px';
+        updateBox();
+    }
+    //
+    else {
+        modeSwitch.classList.add("on");
+        stopPositions['a'] = boxDim * 0.2;
+        stopPositions['b'] = boxDim * 0.2;
+        stopPositions['c'] = boxDim * 0.2;
+        stopPositions['d'] = boxDim * 0.2;
+        stopPositions['e'] = boxDim * 0.2;
+        stopPositions['h'] = boxDim * 0.2;
+        stopPositions['f'] = boxDim * 0.2;
+        stopPositions['g'] = boxDim * 0.2;
+        stopA.style.left = boxDim * 0.2 + 'px';
+        stopB.style.left = boxDim * 0.8 + 'px';
+        stopC.style.left = boxDim * 0.8 + 'px';
+        stopD.style.left = boxDim * 0.2 + 'px';
+        stopE.style.top = boxDim * 0.2 + 'px';
+        stopH.style.top = boxDim * 0.8 + 'px';
+        stopF.style.top = boxDim * 0.2 + 'px';
+        stopG.style.top = boxDim * 0.8 + 'px';
+        updateBox();
+    }
 });
 sizeSwitch.addEventListener("click", (e) => {
     if (showSize) {
