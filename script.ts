@@ -1,10 +1,12 @@
 "use strict";
 
-var box = document.querySelector(".box") as HTMLElement;
-var stops = document.querySelectorAll(".rad-stop") as NodeListOf<HTMLElement>;
-var radiusDataText = document.querySelector(".radius-data-text") as HTMLElement;
+var box             = document.querySelector(".box") as HTMLElement;
+var stops           = document.querySelectorAll(".rad-stop") as NodeListOf<HTMLElement>;
+var radiusDataText  = document.querySelector(".radius-data-text") as HTMLElement;
+var sizeSwitch      = document.querySelector(".switch") as HTMLElement;
 
-var mode: string = "normal";
+var mode: string        = "normalp";
+var showSize: boolean   = false;
 
 var stopA = stops[0];
 var stopB = stops[1];
@@ -31,10 +33,11 @@ var oldX = 0;
 var oldY = 0;
 var oldLeft = 0;
 var oldTop = 0;
+var boxLeft = box.getBoundingClientRect().left;
 
-var viewWidth  = 0.0;
+var viewWidth = 0.0;
 var viewHeight = 0.0;
-var boxDim     = 0.0;
+var boxDim = 0.0;
 
 function updateBox(): void {
   var vh = 200 / window.innerHeight;
@@ -51,14 +54,24 @@ function updateBox(): void {
   radiusDataText.textContent = box.style.borderRadius;
 }
 
+sizeSwitch.addEventListener('click', (e) => {
+    if (showSize) {
+        sizeSwitch.classList.remove('on');
+        showSize = false;
+    } else {
+        sizeSwitch.classList.add('on');
+        showSize = true;
+    }
+});
+
 function updateDim(): void {
-    viewWidth = window.innerWidth;
-    viewHeight = window.innerHeight;
-    boxDim = viewHeight / 2;
+  viewWidth = window.innerWidth;
+  viewHeight = window.innerHeight;
+  boxDim = viewHeight / 2;
 }
 
 updateDim();
-window.addEventListener('resize', updateDim);
+window.addEventListener("resize", updateDim);
 
 for (let i: number = 0; i < 4; i++) {
   stops[i].addEventListener("mousedown", (e) => {
@@ -104,25 +117,31 @@ document.body.addEventListener("mouseup", (e) => {
 document.body.addEventListener("mousemove", (e) => {
   if (pressed) {
     if (pressedStops[0]) {
-      stopPositions["a"] = Math.max(0, oldLeft + e.screenX - oldX);
+      stopPositions["a"] = Math.min(
+        Math.max(0, oldLeft + e.screenX - oldX),
+        boxDim
+      );
       stopA.style.left = stopPositions["a"] + "px";
 
       if (mode == "normal") {
         stopPositions["b"] = boxDim - stopPositions["a"];
         stopB.style.left = stopPositions["a"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[1]) {
-      stopPositions["b"] = Math.max(0, oldLeft + e.screenX - oldX);
-      stopB.style.left = stopPositions["b"] + "px";
+      stopPositions["b"] =
+        boxDim - Math.min(Math.max(0, oldLeft + e.screenX - oldX), boxDim);
+      stopB.style.left = boxDim - stopPositions["b"] + "px";
 
       if (mode == "normal") {
         stopPositions["a"] = boxDim - stopPositions["b"];
-        stopA.style.left = stopPositions["b"] + "px";
+        stopA.style.left = boxDim - stopPositions["b"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[2]) {
       stopPositions["c"] = Math.max(0, oldLeft + e.screenX - oldX);
       stopC.style.left = stopPositions["c"] + "px";
@@ -131,8 +150,9 @@ document.body.addEventListener("mousemove", (e) => {
         stopPositions["d"] = boxDim - stopPositions["c"];
         stopD.style.left = stopPositions["c"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[3]) {
       stopPositions["d"] = Math.max(0, oldLeft + e.screenX - oldX);
       stopD.style.left = stopPositions["d"] + "px";
@@ -141,8 +161,9 @@ document.body.addEventListener("mousemove", (e) => {
         stopPositions["c"] = boxDim - stopPositions["d"];
         stopC.style.left = stopPositions["d"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[4]) {
       stopPositions["e"] = Math.max(0, oldTop + e.screenY - oldY);
       stopE.style.top = stopPositions["e"] + "px";
@@ -151,8 +172,9 @@ document.body.addEventListener("mousemove", (e) => {
         stopPositions["h"] = boxDim - stopPositions["e"];
         stopH.style.top = stopPositions["e"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[5]) {
       stopPositions["h"] = Math.max(0, oldTop + e.screenY - oldY);
       stopH.style.top = stopPositions["h"] + "px";
@@ -161,8 +183,9 @@ document.body.addEventListener("mousemove", (e) => {
         stopPositions["e"] = boxDim - stopPositions["h"];
         stopE.style.top = stopPositions["h"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[6]) {
       stopPositions["f"] = Math.max(0, oldTop + e.screenY - oldY);
       stopF.style.top = stopPositions["f"] + "px";
@@ -171,8 +194,9 @@ document.body.addEventListener("mousemove", (e) => {
         stopPositions["g"] = boxDim - stopPositions["f"];
         stopG.style.top = stopPositions["f"] + "px";
       }
-    } 
-    
+    }
+
+    //
     else if (pressedStops[7]) {
       stopPositions["g"] = Math.max(0, oldTop + e.screenY - oldY);
       stopG.style.top = stopPositions["g"] + "px";
