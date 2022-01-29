@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var box = document.querySelector(".box");
 var stops = document.querySelectorAll(".rad-stop");
 var radiusDataText = document.querySelector(".radius-data-text");
@@ -59,13 +68,17 @@ function updateBox() {
     radiusDataText.textContent = box.style.borderRadius;
 }
 updateBox();
-copyButton.addEventListener("click", (_) => {
-    navigator.clipboard.writeText(box.style.borderRadius);
-    copyInfo.style.opacity = "100%";
-    setTimeout(() => {
-        copyInfo.style.opacity = "0%";
-    }, 5000);
-});
+function handleCopy(e) {
+    return __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        copyInfo.style.opacity = "100%";
+        setTimeout(() => {
+            copyInfo.style.opacity = "0%";
+        }, 5000);
+        yield navigator.clipboard.writeText("border-radius: " + box.style.borderRadius + ";");
+    });
+}
+copyButton.addEventListener("click", handleCopy);
 // Code that'll make you say BRUH in French
 modeSwitch.addEventListener("click", (e) => {
     mode = mode == "normal" ? "abnormal_lol" : "normal";
@@ -163,7 +176,7 @@ document.body.addEventListener("mouseup", handleMouseUp);
 document.body.addEventListener("touchend", handleMouseUp);
 document.body.addEventListener("mousemove", handleMouseMove);
 document.body.addEventListener("touchmove", handleMouseMove);
-// Shitty Code
+// Wadafaka
 function handleMouseMove(e) {
     e.preventDefault();
     let screenX = 0.0;

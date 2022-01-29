@@ -183,8 +183,7 @@ main {
   border: none;
 }
 
-.btn-copy:hover,
-.btn-copy:active {
+.btn-copy:hover {
   background-color: #3023ae;
 }
 
@@ -371,6 +370,11 @@ main {
   .radius-data-box {
     flex-direction: column;
     gap: 0.6rem;
+  }
+
+  .copied-info {
+    left: unset;
+    right: 8px;
   }
 
   .radius-data {

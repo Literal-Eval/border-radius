@@ -70,14 +70,21 @@ function updateBox(): void {
 
 updateBox();
 
-copyButton.addEventListener("click", (_) => {
-  navigator.clipboard.writeText(box.style.borderRadius);
+async function handleCopy(e: MouseEvent): Promise<void> {
+  e.preventDefault();
+  
   copyInfo.style.opacity = "100%";
 
   setTimeout(() => {
     copyInfo.style.opacity = "0%";
   }, 5000);
-});
+
+  await navigator.clipboard.writeText(
+    "border-radius: " + box.style.borderRadius + ";"
+  );
+}
+
+copyButton.addEventListener("click", handleCopy);
 
 // Code that'll make you say BRUH in French
 
@@ -197,7 +204,7 @@ document.body.addEventListener("touchend", handleMouseUp);
 document.body.addEventListener("mousemove", handleMouseMove);
 document.body.addEventListener("touchmove", handleMouseMove);
 
-// Shitty Code
+// Wadafaka
 
 function handleMouseMove(e: MouseEvent | TouchEvent): void {
   e.preventDefault();
