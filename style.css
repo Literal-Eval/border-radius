@@ -142,6 +142,7 @@ main {
   column-gap: 20px;
   row-gap: 20px;
   align-items: center;
+  justify-items: flex-end;
 
   font-size: 1.4rem;
 }
@@ -258,6 +259,26 @@ main {
   border-radius: 20px 20px 20px 10px;
 }
 
+.size-bar {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.size-bar-inputs {
+  display: flex;
+}
+
+.meter {
+  width: 80px;
+  height: 2.4rem;
+  padding: 0px 5px;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
 /**************************
 ******* DISPLAY BOX *******
 **************************/
@@ -352,6 +373,10 @@ main {
 **************************/
 
 @media only screen and (max-width: 768px) {
+  .backdrop {
+    height: 200vh;
+  }
+
   .box {
     width: 60vw;
     height: 60vw;
@@ -375,6 +400,15 @@ main {
   .copied-info {
     left: unset;
     right: 8px;
+  }
+
+  .size-bar {
+    width: 90vw;
+  }
+
+  .size-bar-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .radius-data {
