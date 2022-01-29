@@ -28,7 +28,7 @@ body {
 .backdrop {
   overflow: hidden;
   background-color: #000022;
-  width: 99vw;
+  width: 100vw;
   height: 100vh;
   position: relative;
 }
@@ -94,6 +94,8 @@ body {
 .link-to-gh {
   color: #fff;
   text-decoration: none;
+  z-index: 69696969;
+  position: relative;
 }
 
 /**************************
