@@ -141,6 +141,9 @@ main {
 
   column-gap: 20px;
   row-gap: 20px;
+  align-items: center;
+
+  font-size: 1.4rem;
 }
 
 .radius-data-box {
@@ -150,6 +153,7 @@ main {
 
 .radius-data {
   width: 22rem;
+  height: 3.2rem;
   background-color: #d0d0d6;
   color: #000022;
 
@@ -160,8 +164,8 @@ main {
 .radius-data p {
   font-size: 16px;
   font-weight: 500;
-  padding-left: 10px;
   text-align: center;
+  width: 100%;
 }
 
 .btn-copy {
@@ -173,6 +177,7 @@ main {
 
   padding: 5px 10px;
   font-size: 1.5rem;
+  height: 3.2rem;
   color: white;
   font-weight: bold;
   border: none;
@@ -189,7 +194,7 @@ main {
   bottom: -20px;
   left: 8px;
   opacity: 0%;
-  
+
   color: #f09;
   font-size: 0.8rem;
   max-lines: 1;
@@ -341,4 +346,54 @@ main {
 .btn-rad-stop:hover,
 .btn-rad-stop:active {
   background-color: #00ffff;
+}
+
+/**************************
+******* MOBILE ONLY *******
+**************************/
+
+@media only screen and (max-width: 768px) {
+  .box {
+    width: 60vw;
+    height: 60vw;
+  }
+
+  .divider {
+    width: 24rem;
+  }
+
+  .radius-and-size {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .radius-data-box {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .radius-data {
+    width: 90vw;
+  }
+
+  .rad-stop.a,
+  .rad-stop.b {
+    left: 48vw;
+  }
+
+  .rad-stop.f,
+  .rad-stop.g {
+    top: 48vw;
+  }
+
+  .rad-stop.c,
+  .rad-stop.d {
+    left: 48vw;
+  }
+
+  .rad-stop.e,
+  .rad-stop.h {
+    top: 48vw;
+  }
 }

@@ -4,8 +4,8 @@ var stops = document.querySelectorAll(".rad-stop");
 var radiusDataText = document.querySelector(".radius-data-text");
 var sizeSwitch = document.querySelector(".switch");
 var modeSwitch = document.querySelector(".mode-switch");
-var copyButton = document.querySelector('.btn-copy');
-var copyInfo = document.querySelector('.copied-info');
+var copyButton = document.querySelector(".btn-copy");
+var copyInfo = document.querySelector(".copied-info");
 var mode = "normal";
 var showSize = false;
 var stopA = stops[0];
@@ -29,7 +29,10 @@ var boxDim = 0.0;
 function updateDim() {
     viewWidth = window.innerWidth;
     viewHeight = window.innerHeight;
-    boxDim = viewHeight / 2;
+    boxDim =
+        Math.min(viewHeight, viewWidth) == viewHeight
+            ? viewHeight / 2
+            : viewWidth * 0.6;
 }
 updateDim();
 window.addEventListener("resize", updateDim);
@@ -44,7 +47,7 @@ var stopPositions = {
     h: 0.2 * boxDim,
 };
 function updateBox() {
-    var vh = 200 / window.innerHeight;
+    let vh = viewHeight < viewWidth ? 200 / viewHeight : 500 / (3 * viewWidth);
     box.style.borderRadius = `${Math.round(stopPositions["a"] * vh)}%
     ${Math.round(stopPositions["b"] * vh)}%
     ${Math.round(stopPositions["c"] * vh)}%
@@ -56,11 +59,11 @@ function updateBox() {
     radiusDataText.textContent = box.style.borderRadius;
 }
 updateBox();
-copyButton.addEventListener('click', (_) => {
+copyButton.addEventListener("click", (_) => {
     navigator.clipboard.writeText(box.style.borderRadius);
-    copyInfo.style.opacity = '100%';
+    copyInfo.style.opacity = "100%";
     setTimeout(() => {
-        copyInfo.style.opacity = '0%';
+        copyInfo.style.opacity = "0%";
     }, 5000);
 });
 // Code that'll make you say BRUH in French
@@ -84,7 +87,7 @@ modeSwitch.addEventListener("click", (e) => {
         stopH.style.top = boxDim * 0.5 - 11 + "px";
         stopF.style.top = boxDim * 0.5 - 11 + "px";
         stopG.style.top = boxDim * 0.5 - 11 + "px";
-        modeSwitch.textContent = '8';
+        modeSwitch.textContent = "8";
         updateBox();
     }
     //
@@ -106,11 +109,11 @@ modeSwitch.addEventListener("click", (e) => {
         stopH.style.top = boxDim * 0.8 - 11 + "px";
         stopF.style.top = boxDim * 0.2 - 11 + "px";
         stopG.style.top = boxDim * 0.8 - 11 + "px";
-        modeSwitch.textContent = '4';
+        modeSwitch.textContent = "4";
         updateBox();
     }
 });
-sizeSwitch.addEventListener("click", (e) => {
+function handleSizeSwitchClick(e) {
     if (showSize) {
         sizeSwitch.classList.remove("on");
         showSize = false;
@@ -119,49 +122,63 @@ sizeSwitch.addEventListener("click", (e) => {
         sizeSwitch.classList.add("on");
         showSize = true;
     }
-});
-for (let i = 0; i < 4; i++) {
-    stops[i].addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        oldX = e.screenX;
-        oldLeft =
-            stops[i].style.left === ""
-                ? 0.8 * boxDim
-                : +stops[i].style.left.substring(0, stops[i].style.left.length - 2);
-        pressedStops[i] = true;
-        pressed = true;
-    });
-    stops[i].addEventListener("mouseup", (e) => {
-        pressedStops[i] = false;
-        pressed = false;
-    });
 }
-for (let i = 4; i < 8; i++) {
-    stops[i].addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        oldY = e.screenY;
-        oldTop =
-            stops[i].style.top === ""
-                ? 0.8 * boxDim
-                : +stops[i].style.top.substring(0, stops[i].style.top.length - 2);
-        pressedStops[i] = true;
-        pressed = true;
-    });
-    stops[i].addEventListener("mouseup", (e) => {
-        pressedStops[i] = false;
-        pressed = false;
-    });
-}
-document.body.addEventListener("mouseup", (e) => {
-    pressedStops[0] = false;
-    pressed = false;
-});
-// Shitty Code
-document.body.addEventListener("mousemove", (e) => {
+sizeSwitch.addEventListener("click", handleSizeSwitchClick);
+function handleBtnClick(e, i) {
     e.preventDefault();
+    if (e instanceof MouseEvent) {
+        oldX = e.screenX;
+        oldY = e.screenY;
+    }
+    else {
+        oldX = e.touches[0].screenX;
+        oldY = e.touches[0].screenY;
+    }
+    oldLeft =
+        stops[i].style.left === ""
+            ? 0.8 * boxDim
+            : +stops[i].style.left.substring(0, stops[i].style.left.length - 2);
+    oldTop =
+        stops[i].style.top === ""
+            ? 0.8 * boxDim
+            : +stops[i].style.top.substring(0, stops[i].style.top.length - 2);
+    pressedStops[i] = true;
+    pressed = true;
+}
+for (let i = 0; i < 8; i++) {
+    stops[i].addEventListener("mousedown", (e) => handleBtnClick(e, i));
+    stops[i].addEventListener("touchstart", (e) => handleBtnClick(e, i));
+    stops[i].addEventListener("mouseup", (e) => {
+        pressedStops[i] = false;
+        pressed = false;
+    });
+}
+function handleMouseUp() {
+    for (let i = 0; i < 8; i++) {
+        pressedStops[i] = false;
+    }
+    pressed = false;
+}
+document.body.addEventListener("mouseup", handleMouseUp);
+document.body.addEventListener("touchend", handleMouseUp);
+document.body.addEventListener("mousemove", handleMouseMove);
+document.body.addEventListener("touchmove", handleMouseMove);
+// Shitty Code
+function handleMouseMove(e) {
+    e.preventDefault();
+    let screenX = 0.0;
+    let screenY = 0.0;
+    if (e instanceof MouseEvent) {
+        screenX = e.screenX;
+        screenY = e.screenY;
+    }
+    else {
+        screenX = e.touches[0].screenX;
+        screenY = e.touches[0].screenY;
+    }
     if (pressed) {
         if (pressedStops[0]) {
-            stopPositions["a"] = Math.min(Math.max(0, oldLeft + e.screenX - oldX), boxDim);
+            stopPositions["a"] = Math.min(Math.max(0, oldLeft + screenX - oldX), boxDim);
             stopA.style.left = stopPositions["a"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["b"] = boxDim - stopPositions["a"];
@@ -171,7 +188,7 @@ document.body.addEventListener("mousemove", (e) => {
         //
         else if (pressedStops[1]) {
             stopPositions["b"] =
-                boxDim - Math.min(Math.max(0, oldLeft + e.screenX - oldX), boxDim);
+                boxDim - Math.min(Math.max(0, oldLeft + screenX - oldX), boxDim);
             stopB.style.left = boxDim - stopPositions["b"] - 9 + "px";
             if (mode == "normal") {
                 stopPositions["a"] = boxDim - stopPositions["b"];
@@ -181,7 +198,7 @@ document.body.addEventListener("mousemove", (e) => {
         //
         else if (pressedStops[2]) {
             stopPositions["c"] =
-                boxDim - Math.min(Math.max(0, oldLeft + e.screenX - oldX), boxDim);
+                boxDim - Math.min(Math.max(0, oldLeft + screenX - oldX), boxDim);
             stopC.style.left = boxDim - stopPositions["c"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["d"] = boxDim - stopPositions["c"];
@@ -190,7 +207,7 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[3]) {
-            stopPositions["d"] = Math.min(Math.min(Math.max(0, oldLeft + e.screenX - oldX)), boxDim);
+            stopPositions["d"] = Math.min(Math.min(Math.max(0, oldLeft + screenX - oldX)), boxDim);
             stopD.style.left = stopPositions["d"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["c"] = boxDim - stopPositions["d"];
@@ -199,7 +216,7 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[4]) {
-            stopPositions["e"] = Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+            stopPositions["e"] = Math.min(Math.max(0, oldTop + screenY - oldY), boxDim);
             stopE.style.top = stopPositions["e"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["h"] = boxDim - stopPositions["e"];
@@ -209,7 +226,7 @@ document.body.addEventListener("mousemove", (e) => {
         //
         else if (pressedStops[5]) {
             stopPositions["h"] =
-                boxDim - Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+                boxDim - Math.min(Math.max(0, oldTop + screenY - oldY), boxDim);
             stopH.style.top = boxDim - stopPositions["h"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["e"] = boxDim - stopPositions["h"];
@@ -218,7 +235,7 @@ document.body.addEventListener("mousemove", (e) => {
         }
         //
         else if (pressedStops[6]) {
-            stopPositions["f"] = Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+            stopPositions["f"] = Math.min(Math.max(0, oldTop + screenY - oldY), boxDim);
             stopF.style.top = stopPositions["f"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["g"] = boxDim - stopPositions["f"];
@@ -228,7 +245,7 @@ document.body.addEventListener("mousemove", (e) => {
         //
         else if (pressedStops[7]) {
             stopPositions["g"] =
-                boxDim - Math.min(Math.max(0, oldTop + e.screenY - oldY), boxDim);
+                boxDim - Math.min(Math.max(0, oldTop + screenY - oldY), boxDim);
             stopG.style.top = boxDim - stopPositions["g"] - 10 + "px";
             if (mode == "normal") {
                 stopPositions["f"] = boxDim - stopPositions["g"];
@@ -237,4 +254,4 @@ document.body.addEventListener("mousemove", (e) => {
         }
         updateBox();
     }
-});
+}
